@@ -1,8 +1,7 @@
 {
   "name": "advent-of-code",
   "version": "1.0.0",
-  "description": "",
-  "main": "day_one_historian_hysteria.js",
+  "description": "Doing advent of code from https://adventofcode.com/2024",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
