@@ -5,7 +5,7 @@ type increaseOrDecrease = 'increase' | 'decrease' | 'same'
 const main = async () => {
     const data = await readCsv('dayTwo/redNoseReportsFull.csv')
     const reports = parseData(data)
-    sortReports(reports)
+    sortReportsWithProblemDampener(reports)
 }
 
 const sortReports = (reports: any[]) => {
@@ -16,7 +16,33 @@ const sortReports = (reports: any[]) => {
             safeReports++
         }
     }
+}
+
+const sortReportsWithProblemDampener = (reports: any[]) => {
+    let safeReports: number = 0
+    for (const report of reports) {
+        const unsafe = checkReportsWithProblemDampener(report)
+        console.log('Report', report, 'Safe count:', unsafe)
+        if (unsafe >= 1) {
+            safeReports++
+        }
+    }
     console.log('Safe Reports: ', safeReports)
+}
+
+const checkReportsWithProblemDampener = (report: number[]): number => {
+    let safeReportCount = 0
+    for (let i = 0; i < report.length; i++) {
+        const reportCopy = report.slice(); // Create a copy of the report array
+        reportCopy.splice(i, 1);
+        const safeIncreasingOrDecreasing = checkIncreasingOrDecreasing(reportCopy);
+        const isDifferencesSafe = checkDifferences(reportCopy);
+        if (isDifferencesSafe && safeIncreasingOrDecreasing) {
+            safeReportCount++
+        }
+        console.log(reportCopy, 'is', safeIncreasingOrDecreasing, 'and ', isDifferencesSafe)
+    }
+    return safeReportCount
 }
 
 const checkReport = (report: number[]): boolean => {

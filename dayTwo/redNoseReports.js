@@ -13,7 +13,7 @@ const readCsv_1 = require("../helpers/readCsv");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield (0, readCsv_1.readCsv)('dayTwo/redNoseReportsFull.csv');
     const reports = parseData(data);
-    sortReports(reports);
+    sortReportsWithProblemDampener(reports);
 });
 const sortReports = (reports) => {
     let safeReports = 0;
@@ -23,7 +23,31 @@ const sortReports = (reports) => {
             safeReports++;
         }
     }
+};
+const sortReportsWithProblemDampener = (reports) => {
+    let safeReports = 0;
+    for (const report of reports) {
+        const unsafe = checkReportsWithProblemDampener(report);
+        console.log('Report', report, 'Safe count:', unsafe);
+        if (unsafe >= 1) {
+            safeReports++;
+        }
+    }
     console.log('Safe Reports: ', safeReports);
+};
+const checkReportsWithProblemDampener = (report) => {
+    let safeReportCount = 0;
+    for (let i = 0; i < report.length; i++) {
+        const reportCopy = report.slice(); // Create a copy of the report array
+        reportCopy.splice(i, 1);
+        const safeIncreasingOrDecreasing = checkIncreasingOrDecreasing(reportCopy);
+        const isDifferencesSafe = checkDifferences(reportCopy);
+        if (isDifferencesSafe && safeIncreasingOrDecreasing) {
+            safeReportCount++;
+        }
+        console.log(reportCopy, 'is', safeIncreasingOrDecreasing, 'and ', isDifferencesSafe);
+    }
+    return safeReportCount;
 };
 const checkReport = (report) => {
     const safeIncreasingOrDecreasing = checkIncreasingOrDecreasing(report);
