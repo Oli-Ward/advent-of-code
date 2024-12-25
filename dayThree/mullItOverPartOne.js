@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const input_1 = require("./input");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const matchArray = matchRegex(input_1.input);
+    const matchArray = matchRegex(input_1.fullInput);
     if (matchArray) {
         addUpArray(matchArray);
     }

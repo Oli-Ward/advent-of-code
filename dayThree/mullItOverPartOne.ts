@@ -1,7 +1,7 @@
-import { input } from "./input"
+import { fullInput } from "./input"
 
 const main = async () => {        
-    const matchArray = matchRegex(input)
+    const matchArray = matchRegex(fullInput)
     if (matchArray) {
     addUpArray(matchArray)
     }
